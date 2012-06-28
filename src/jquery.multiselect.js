@@ -205,6 +205,7 @@ $.widget("ech.multiselect", {
 			$inputs = this.inputs,
 			$checked = $inputs.filter(':checked'),
 			numChecked = $checked.length,
+			selectedClass = '',
 			value;
 		
 		if( numChecked === 0 ){
@@ -214,12 +215,14 @@ $.widget("ech.multiselect", {
 				value = o.selectedText.call(this, numChecked, $inputs.length, $checked.get());
 			} else if( /\d/.test(o.selectedList) && o.selectedList > 0 && numChecked <= o.selectedList){
 				value = $checked.map(function(){ return $(this).next().html(); }).get().join(', ');
+				selectedClass= 'selected'
 			} else {
 				value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
 			}
 		}
-		
+
 		this.buttonlabel.html( value );
+		this.buttonlabel.addClass( selectedClass );
 		return value;
 	},
 	
